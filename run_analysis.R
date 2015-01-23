@@ -1,4 +1,4 @@
-setwd("F:/Coursera Cleaning Data/UCI HAR Dataset")
+setwd("./UCI HAR Dataset")
 features<-read.table("./features.txt")
 activities<-read.table("./activity_labels.txt")
 
@@ -12,7 +12,7 @@ subject_train<-read.table("./subject_train.txt")
 X_train<-read.table("./X_train.txt")
 y_train<-read.table("./y_train.txt")
 
-#labeling data set
+# labeling data set
 feature_names<-as.character(features$V2[1:nrow(features)])
 activity_names<-as.character(activities$V2[1:nrow(activities)])
 colnames(X_test)<-feature_names
@@ -29,14 +29,14 @@ X_test<-cbind(subject_test,X_test)
 
 data<-rbind(X_train, X_test)
 
-# extracting the mean and standard deviation 
+# extracting the mean and standard deviation
 ncols<-ncol(data)
 mean<-sapply(data[,3:ncols],mean)
 std<-sapply(data[,3:ncols],sd)
 mean_std<-rbind(mean,std)
 
-#generating report with individual mean data
-ids<-seq(1:30)
+# generating report with individual mean data
+ids<-30:1
 report<-c()
 for (j in ids) {
   for (i in activities$V1) {
@@ -44,6 +44,11 @@ for (j in ids) {
     report<-rbind(sapply(data[id_act,], mean), report)
   }
 }
+
+for (i in 1:nrow(report)){
+  report[i,2]<-as.character(activities[report[i,2],2])
+}
+write.table(report, "run_analysis_table.txt", row.names=FALSE)
 
 
 

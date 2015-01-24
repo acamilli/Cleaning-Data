@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+setwd("../UCI HAR Dataset")
+=======
 setwd("./UCI HAR Dataset")
+>>>>>>> 19c54e52758bb3f4f22387e56ee4b68a48db3ae3
 features<-read.table("./features.txt")
 activities<-read.table("./activity_labels.txt")
 
